@@ -175,11 +175,17 @@ if $DO_PACKAGE; then
     
     # Build sed expressions for each folder
     local sed_expressions=()
+    # Use '#' as the sed delimiter to avoid confusion with '/' in patterns.
+    # Patterns:
+    #   - /folder/      → /$SPECKIT_DIR/folder/
+    #   - /folder"      → /$SPECKIT_DIR/folder"
+    #   - /folder<space>→ /$SPECKIT_DIR/folder<space>
+    #   - /folder$      → /$SPECKIT_DIR/folder
     for folder in "${folders[@]}"; do
-      sed_expressions+=("-e" "s|/$folder/|/$SPECKIT_DIR/$folder/|g")
-      sed_expressions+=("-e" "s|/$folder\"|/$SPECKIT_DIR/$folder\"|g") 
-      sed_expressions+=("-e" "s|/$folder |/$SPECKIT_DIR/$folder |g")
-      sed_expressions+=("-e" "s|/$folder$|/$SPECKIT_DIR/$folder|g")
+      sed_expressions+=("-e" "s#/$folder/#/$SPECKIT_DIR/$folder/#g")
+      sed_expressions+=("-e" "s#/$folder\"#/$SPECKIT_DIR/$folder\"#g") 
+      sed_expressions+=("-e" "s#/$folder #/$SPECKIT_DIR/$folder #g")
+      sed_expressions+=("-e" "s#/$folder\$#/$SPECKIT_DIR/$folder#g")
     done
     
     # Find all files and update paths
