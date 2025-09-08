@@ -182,7 +182,7 @@ if $DO_PACKAGE; then
     done
     
     # Find all files and update paths
-    find "$target_dir" -type f \( -name "*.md" -o -name "*.py" -o -name "*.sh" -o -name "*.toml" -o -name "*.yaml" -o -name "*.yml" -o -name "*.json" -o -name "*.txt" \) -exec sed -i.bak "${sed_expressions[@]}" {} \;
+    find "$target_dir" -type f \( -name "*.md" -o -name "*.py" -o -name "*.sh" -o -name "*.toml" -o -name "*.yaml" -o -name "*.yml" -o -name "*.json" -o -name "*.txt" \) -print0 | xargs -0 sed -i.bak "${sed_expressions[@]}"
     
     # Clean up backup files
     find "$target_dir" -name "*.bak" -delete
