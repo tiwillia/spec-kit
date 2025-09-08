@@ -221,7 +221,7 @@ if $DO_PACKAGE; then
   generate_commands "copilot" "prompt.md" "\$ARGUMENTS" "sdd-copilot-package/.github/prompts"
   echo "✓ Created GitHub Copilot package"
   
-  # # Update speckit paths in all packages
+  # Update speckit paths in all packages
   update_speckit_path "sdd-base-package"
   update_speckit_path "sdd-claude-package"
   update_speckit_path "sdd-gemini-package"
