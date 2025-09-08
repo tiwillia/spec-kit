@@ -92,22 +92,23 @@ if $DO_PACKAGE; then
   echo "Creating release packages..."
   mkdir -p sdd-base-package
   mkdir -p sdd-base-package/$SPECKIT_DIR
+  SPECKIT_PATH="sdd-base-package/$SPECKIT_DIR"
   if [ -d "memory" ]; then
-    cp -r memory sdd-base-package/$SPECKIT_DIR
+    cp -r memory "$SPECKIT_PATH"
     echo "✓ Copied memory folder ($(find memory -type f | wc -l) files)"
   else
     echo "⚠️ memory folder not found"
   fi
   if [ -d "scripts" ]; then
-    cp -r scripts sdd-base-package/$SPECKIT_DIR
+    cp -r scripts "$SPECKIT_PATH"
     echo "✓ Copied scripts folder ($(find scripts -type f | wc -l) files)"
   else
     echo "⚠️ scripts folder not found"
   fi
   if [ -d "templates" ]; then
-    cp -r templates sdd-base-package/$SPECKIT_DIR
-    if [ -d "sdd-base-package/$SPECKIT_DIR/templates/commands" ]; then
-      rm -rf sdd-base-package/$SPECKIT_DIR/templates/commands
+    cp -r templates "$SPECKIT_PATH"
+    if [ -d "$SPECKIT_PATH/templates/commands" ]; then
+      rm -rf "$SPECKIT_PATH/templates/commands"
       echo "✓ Removed commands subfolder from templates"
     fi
     echo "✓ Copied templates folder (excluding commands directory)"
