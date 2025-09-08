@@ -285,7 +285,12 @@ if $DO_PYPROJECT_UPDATE; then
   echo "Updating pyproject.toml..."
   PYTHON_VERSION=${NEW_VERSION#v}
   if [ -f "pyproject.toml" ]; then
-    sed -i '' "s/version = \".*\"/version = \"$PYTHON_VERSION\"/" pyproject.toml
+    # Cross-platform in-place sed (macOS vs Linux)
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+      sed -i '' "s/version = \".*\"/version = \"$PYTHON_VERSION\"/" pyproject.toml
+    else
+      sed -i "s/version = \".*\"/version = \"$PYTHON_VERSION\"/" pyproject.toml
+    fi
     echo "✓ Updated pyproject.toml version to $PYTHON_VERSION (for release artifacts only)"
   fi
 fi
