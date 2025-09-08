@@ -122,7 +122,7 @@ if $DO_PACKAGE; then
     
     mkdir -p "$output_dir"
     
-    for template in /templates/commands/*.md; do
+    for template in templates/commands/*.md; do
       if [[ -f "$template" ]]; then
         name=$(basename "$template" .md)
         description=$(awk '/^description:/ {gsub(/^description: *"?/, ""); gsub(/"$/, ""); print; exit}' "$template" | tr -d '\r')
