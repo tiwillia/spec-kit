@@ -420,9 +420,9 @@ def download_template_from_github(ai_assistant: str, download_dir: Path, *, verb
         repo_owner = "github"
         repo_name = "spec-kit"
     
-    if verbose:
-        console.print("[cyan]Fetching latest release information...[/cyan]")
     api_url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/releases/latest"
+    if verbose:
+        console.print(f"[cyan]Fetching latest release from {api_url} ...[/cyan]")
     
     try:
         response = httpx.get(api_url, timeout=30, follow_redirects=True)
